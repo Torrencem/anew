@@ -1,0 +1,14 @@
+[package]
+name = "anew"
+version = "0.1.0"
+authors = ["Matt Torrence (github: Torrencem)"]
+edition = "2018"
+description = "Copy and reuse common default templates for files and directories"
+
+[dependencies]
+clap = "2.32.0"
+glob = "0.3.0"
+
+[profile.release]
+lto = true
+panic = 'abort'
