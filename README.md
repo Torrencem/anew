@@ -2,7 +2,27 @@
 
 Copy and reuse common default templates for files and directories.
 
-    (anew --help goes here)
+    anew 0.1.0
+    Matt Torrence (github: Torrencem)
+    Copy and reuse common default templates for files and directories
+
+    USAGE:
+        anew [ARGS] [SUBCOMMAND]
+
+    FLAGS:
+        -h, --help       Prints help information
+        -V, --version    Prints version information
+
+    ARGS:
+        <NAME>         The name of the template to copy
+        <DIRECTORY>    The directory to clone into [default: .]
+
+    SUBCOMMANDS:
+        create    Create a new template
+        dir       Alias for ls
+        help      Prints this message or the help of the given subcommand(s)
+        ls        List available templates
+        remove    Remove a template
 
 Example usage:
 
