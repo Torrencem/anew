@@ -6,6 +6,7 @@ mod lib;
 use std::process::exit;
 use std::path::PathBuf;
 use glob::glob;
+use std::process::Command;
 
 fn main() {
     let matches = App::new(env!("CARGO_PKG_NAME"))
@@ -28,7 +29,8 @@ fn main() {
                                             .required(true))
                                     .arg(Arg::with_name("FILES")
                                             .help("The files or folders to add to the template")
-                                            .multiple(true)))
+                                            .multiple(true)
+                                            .default_value("./**/*.*")))
                         .subcommand(SubCommand::with_name("remove")
                                     .about("Remove a template")
                                     .arg(Arg::with_name("NAME")
@@ -38,7 +40,14 @@ fn main() {
                                     .about("List available templates"))
                         .subcommand(SubCommand::with_name("dir")
                                     .about("Alias for ls"))
+                        .subcommand(SubCommand::with_name("rm")
+                                    .about("Alias for remove"))
                         .get_matches();
+
+    // Fix globstar on linux (for ** pattern)
+    #[cfg(target_os = "linux")] {
+        let _ = Command::new("shopt").arg("-s").arg("globstar").spawn();
+    }
 
     (match matches.subcommand_name() {
         None => {
@@ -75,6 +84,10 @@ fn main() {
             let matches = matches.subcommand_matches("remove").unwrap();
             lib::remove_template(&matches.value_of("NAME").unwrap().to_string())
         },
+        Some("rm") => {
+            let matches = matches.subcommand_matches("remove").unwrap();
+            lib::remove_template(&matches.value_of("NAME").unwrap().to_string())
+        }
         Some("ls") => lib::list_templates(),
         Some("dir") => lib::list_templates(),
         Some(_) => unreachable!()

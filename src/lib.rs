@@ -147,7 +147,7 @@ pub fn apply_template(name: &String, path: PathBuf) -> io::Result<()> {
     tdir.push(name);
     if !tdir.exists() {
         eprintln!("Template does not exist: {}", name);
-        eprintln!("(use 'anew dir' to list available templates");
+        eprintln!("(use 'anew dir' to list available templates)");
         exit(1);
     }
     cp_from_dir(tdir.as_path(), &path, &tdir)?;

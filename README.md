@@ -34,7 +34,7 @@ Example usage:
     echo "Hi, there!" >> main.tex
     echo "\end{document}" >> main.tex
 
-    anew create latex ./* # or: anew create latex
+    anew create latex # or: anew create latex main.tex
 
 This copies `main.tex` into `$HOME/.anew/templates/latex/`.
 
@@ -43,3 +43,5 @@ After setting up the "latex" template, you can initialize a directory like so:
     mkdir my_new_project
     cd my_new_project
     anew latex . # or: anew latex
+
+Note that currently the default glob used for anew create (**/*.*) ignores empty directories, so you have to add them to the file list or use a different glob if you want to preserve them.
